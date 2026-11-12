@@ -1,0 +1,15 @@
+{
+  "files.associations": {
+    "*.jkf": "hanacaraka",
+    "*.hana": "hanacaraka"
+  },
+  "editor.fontFamily": "'Noto Sans Javanese', 'Fira Code', monospace",
+  "editor.fontSize": 17,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "terminal.integrated.fontFamily": "'Noto Sans Javanese', monospace",
+  "code-runner.executorMap": {
+    "hanacaraka": "./hanapascal_bin $fullFileName"
+  },
+  "code-runner.runInTerminal": true
+}
