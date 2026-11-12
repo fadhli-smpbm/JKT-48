@@ -1,0 +1,45 @@
+{
+  "name": "hanacaraka",
+  "displayName": "Hanacaraka (.jkf) Language Support",
+  "description": "Bahasa pemrograman pakai aksara Jawa. File .jkf = Jawa Kode File. Syntax highlighting, snippets, run.",
+  "version": "1.1.0",
+  "publisher": "hanacaraka",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Programming Languages", "Snippets"],
+  "keywords": ["hanacaraka", "jkf", "jawa", "javanese", "indonesia"],
+  "homepage": "https://github.com/USERNAME_KAMU/hanacaraka",
+  "repository": { "type": "git", "url": "https://github.com/USERNAME_KAMU/hanacaraka.git" },
+  "contributes": {
+    "languages": [
+      {
+        "id": "hanacaraka",
+        "aliases": ["Hanacaraka", "jkf"],
+        "extensions": [".jkf", ".hana"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "hanacaraka",
+        "scopeName": "source.hanacaraka",
+        "path": "./syntaxes/hanacaraka.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      { "language": "hanacaraka", "path": "./snippets/hanacaraka.json" }
+    ],
+    "commands": [
+      { "command": "hanacaraka.run", "title": "Hanacaraka: Jalankan .jkf" },
+      { "command": "hanacaraka.compile", "title": "Hanacaraka: Compile .jkf jadi Binary" }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.26.0"
+  }
+}
