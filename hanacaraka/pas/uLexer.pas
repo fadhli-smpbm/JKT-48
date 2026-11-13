@@ -89,6 +89,14 @@ begin
     begin
       Inc(I); Inc(Kolom); Continue;
     end;
+if Huruf = ',' then 
+begin 
+CurToken := 42; 
+CurText := ','; 
+Inc(I); 
+Inc(Kolom);
+Exit;
+end;
     if Huruf = #10 then
     begin
       Inc(I); Inc(Baris); Kolom := 1; Continue;
