@@ -1,0 +1,9 @@
+.vscode/**
+.gitignore
+bootstrap.sh
+hanapascal.pas
+hanapascal_hana_*.pas
+contoh/**
+out*.pas
+**/*.o
+**/*.ppu
