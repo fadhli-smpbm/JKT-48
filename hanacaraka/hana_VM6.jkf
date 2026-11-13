@@ -1,0 +1,756 @@
+ꦥꦿꦺꦴꦒꦿꦩ꧀ VM100;
+ꦮꦂ
+  kode : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  namaFile : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  i : ꦲꦁꦏ;
+  panjang : ꦲꦁꦏ;
+  curToken : ꦲꦁꦏ;
+  curText : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  huruf : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  kata : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  temp : ꦲꦁꦏ;
+  nilai : ꦲꦁꦏ;
+  nilai2 : ꦲꦁꦏ;
+  hasilExpr : ꦲꦁꦏ;
+  namaVar : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  varSimpan : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  procSimpan : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  funcSimpan : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  j : ꦲꦁꦏ;
+  k : ꦲꦁꦏ;
+  cocok : ꦲꦁꦏ;
+  angkaStr : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  hasilStr : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  digit : ꦲꦁꦏ;
+  sisa : ꦲꦁꦏ;
+  savedI : ꦲꦁꦏ;
+  savedToken : ꦲꦁꦏ;
+  savedText : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  savedKode : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  savedPanjang : ꦲꦁꦏ;
+  cond : ꦲꦁꦏ;
+  procBody : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  procNama : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  funcNama : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  depth : ꦲꦁꦏ;
+  forVar : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  forAwal : ꦲꦁꦏ;
+  forAkhir : ꦲꦁꦏ;
+  forCur : ꦲꦁꦏ;
+
+ꦥ꦳ꦸꦁꦱꦶ ApaHuruf(h : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  temp := Kode(h);
+  ꦪꦺꦤ꧀ temp >= 65 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦪꦺꦤ꧀ temp <= 90 ꦩꦺꦴꦁꦏꦺꦴ
+      ApaHuruf := 1
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ temp >= 97 ꦩꦺꦴꦁꦏꦺꦴ
+        ꦪꦺꦤ꧀ temp <= 122 ꦩꦺꦴꦁꦏꦺꦴ
+          ApaHuruf := 1
+        ꦭꦶꦪꦤꦺ
+          ApaHuruf := 0
+      ꦭꦶꦪꦤꦺ
+        ApaHuruf := 0
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ temp >= 43008 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦪꦺꦤ꧀ temp <= 43135 ꦩꦺꦴꦁꦏꦺꦴ
+        ApaHuruf := 1
+      ꦭꦶꦪꦤꦺ
+        ApaHuruf := 0
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ temp = 95 ꦩꦺꦴꦁꦏꦺꦴ
+        ApaHuruf := 1
+      ꦭꦶꦪꦤꦺ
+        ApaHuruf := 0;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ ApaAngka(h : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  temp := Kode(h);
+  ꦪꦺꦤ꧀ temp >= 48 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦪꦺꦤ꧀ temp <= 57 ꦩꦺꦴꦁꦏꦺꦴ
+      ApaAngka := 1
+    ꦭꦶꦪꦤꦺ
+      ApaAngka := 0
+  ꦭꦶꦪꦤꦺ
+    ApaAngka := 0;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ StrKeAngka(s : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  nilai := 0;
+  j := 1;
+  ꦱꦼꦭꦶꦫꦺ j <= Panjang(s) ꦭꦏꦺꦴꦤꦶ
+  ꦩꦸꦭꦶ
+    huruf := Ambil(s, j);
+    temp := Kode(huruf);
+    ꦪꦺꦤ꧀ temp >= 48 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦪꦺꦤ꧀ temp <= 57 ꦩꦺꦴꦁꦏꦺꦴ
+        nilai := nilai * 10 + temp - 48;
+    j := j + 1;
+  ꦫꦩ꧀ꦥꦸꦁ;
+  StrKeAngka := nilai;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ AngkaKeStr(n : ꦲꦁꦏ) : ꦠꦼꦩ꧀ꦧꦸꦁ;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ n = 0 ꦩꦺꦴꦁꦏꦺꦴ
+    AngkaKeStr := '0'
+  ꦭꦶꦪꦤꦺ
+    ꦩꦸꦭꦶ
+      hasilStr := '';
+      temp := n;
+      ꦱꦼꦭꦶꦫꦺ temp > 0 ꦭꦏꦺꦴꦤꦶ
+      ꦩꦸꦭꦶ
+        sisa := temp - temp / 10 * 10;
+        digit := sisa + 48;
+        hasilStr := Gabung(Chr(digit), hasilStr);
+        temp := temp / 10;
+      ꦫꦩ꧀ꦥꦸꦁ;
+      AngkaKeStr := hasilStr;
+    ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ SimpanVar(n : ꦠꦼꦩ꧀ꦧꦸꦁ; v : ꦲꦁꦏ);
+ꦩꦸꦭꦶ
+  angkaStr := AngkaKeStr(v);
+  varSimpan := Gabung(varSimpan, n);
+  varSimpan := Gabung(varSimpan, '=');
+  varSimpan := Gabung(varSimpan, angkaStr);
+  varSimpan := Gabung(varSimpan, ';');
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ AmbilVar(n : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  hasilExpr := 0;
+  j := 1;
+  ꦱꦼꦭꦶꦫꦺ j <= Panjang(varSimpan) ꦭꦏꦺꦴꦤꦶ
+  ꦩꦸꦭꦶ
+    cocok := 1;
+    k := 1;
+    ꦱꦼꦭꦶꦫꦺ k <= Panjang(n) ꦭꦏꦺꦴꦤꦶ
+    ꦩꦸꦭꦶ
+      ꦪꦺꦤ꧀ Ambil(varSimpan, j + k - 1) <> Ambil(n, k) ꦩꦺꦴꦁꦏꦺꦴ
+        cocok := 0;
+      k := k + 1;
+    ꦫꦩ꧀ꦥꦸꦁ;
+    ꦪꦺꦤ꧀ cocok = 1 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦪꦺꦤ꧀ Ambil(varSimpan, j + Panjang(n)) = '=' ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        kata := '';
+        k := j + Panjang(n) + 1;
+        ꦱꦼꦭꦶꦫꦺ k <= Panjang(varSimpan) ꦭꦏꦺꦴꦤꦶ
+        ꦩꦸꦭꦶ
+          huruf := Ambil(varSimpan, k);
+          ꦪꦺꦤ꧀ huruf = ';' ꦩꦺꦴꦁꦏꦺꦴ
+            k := Panjang(varSimpan) + 1
+          ꦭꦶꦪꦤꦺ
+            kata := Gabung(kata, huruf);
+            k := k + 1;
+        ꦫꦩ꧀ꦥꦸꦁ;
+        hasilExpr := StrKeAngka(kata);
+      ꦫꦩ꧀ꦥꦸꦁ;
+    j := j + 1;
+  ꦫꦩ꧀ꦥꦸꦁ;
+  AmbilVar := hasilExpr;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ SimpanProc(n : ꦠꦼꦩ꧀ꦧꦸꦁ; body : ꦠꦼꦩ꧀ꦧꦸꦁ);
+ꦩꦸꦭꦶ
+  procSimpan := Gabung(procSimpan, n);
+  procSimpan := Gabung(procSimpan, '#');
+  procSimpan := Gabung(procSimpan, body);
+  procSimpan := Gabung(procSimpan, '@');
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ SimpanFunc(n : ꦠꦼꦩ꧀ꦧꦸꦁ; body : ꦠꦼꦩ꧀ꦧꦸꦁ);
+ꦩꦸꦭꦶ
+  funcSimpan := Gabung(funcSimpan, n);
+  funcSimpan := Gabung(funcSimpan, '#');
+  funcSimpan := Gabung(funcSimpan, body);
+  funcSimpan := Gabung(funcSimpan, '@');
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ AmbilProc(n : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦠꦼꦩ꧀ꦧꦸꦁ;
+ꦩꦸꦭꦶ
+  hasilStr := '';
+  j := 1;
+  ꦱꦼꦭꦶꦫꦺ j <= Panjang(procSimpan) ꦭꦏꦺꦴꦤꦶ
+  ꦩꦸꦭꦶ
+    cocok := 1;
+    k := 1;
+    ꦱꦼꦭꦶꦫꦺ k <= Panjang(n) ꦭꦏꦺꦴꦤꦶ
+    ꦩꦸꦭꦶ
+      ꦪꦺꦤ꧀ Ambil(procSimpan, j + k - 1) <> Ambil(n, k) ꦩꦺꦴꦁꦏꦺꦴ
+        cocok := 0;
+      k := k + 1;
+    ꦫꦩ꧀ꦥꦸꦁ;
+    ꦪꦺꦤ꧀ cocok = 1 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦪꦺꦤ꧀ Ambil(procSimpan, j + Panjang(n)) = '#' ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        kata := '';
+        k := j + Panjang(n) + 1;
+        ꦱꦼꦭꦶꦫꦺ k <= Panjang(procSimpan) ꦭꦏꦺꦴꦤꦶ
+        ꦩꦸꦭꦶ
+          huruf := Ambil(procSimpan, k);
+          ꦪꦺꦤ꧀ huruf = '@' ꦩꦺꦴꦁꦏꦺꦴ
+            k := Panjang(procSimpan) + 1
+          ꦭꦶꦪꦤꦺ
+            kata := Gabung(kata, huruf);
+            k := k + 1;
+        ꦫꦩ꧀ꦥꦸꦁ;
+        hasilStr := kata;
+      ꦫꦩ꧀ꦥꦸꦁ;
+    j := j + 1;
+  ꦫꦩ꧀ꦥꦸꦁ;
+  AmbilProc := hasilStr;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ AmbilFunc(n : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦠꦼꦩ꧀ꦧꦸꦁ;
+ꦩꦸꦭꦶ
+  hasilStr := '';
+  j := 1;
+  ꦱꦼꦭꦶꦫꦺ j <= Panjang(funcSimpan) ꦭꦏꦺꦴꦤꦶ
+  ꦩꦸꦭꦶ
+    cocok := 1;
+    k := 1;
+    ꦱꦼꦭꦶꦫꦺ k <= Panjang(n) ꦭꦏꦺꦴꦤꦶ
+    ꦩꦸꦭꦶ
+      ꦪꦺꦤ꧀ Ambil(funcSimpan, j + k - 1) <> Ambil(n, k) ꦩꦺꦴꦁꦏꦺꦴ
+        cocok := 0;
+      k := k + 1;
+    ꦫꦩ꧀ꦥꦸꦁ;
+    ꦪꦺꦤ꧀ cocok = 1 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦪꦺꦤ꧀ Ambil(funcSimpan, j + Panjang(n)) = '#' ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        kata := '';
+        k := j + Panjang(n) + 1;
+        ꦱꦼꦭꦶꦫꦺ k <= Panjang(funcSimpan) ꦭꦏꦺꦴꦤꦶ
+        ꦩꦸꦭꦶ
+          huruf := Ambil(funcSimpan, k);
+          ꦪꦺꦤ꧀ huruf = '@' ꦩꦺꦴꦁꦏꦺꦴ
+            k := Panjang(funcSimpan) + 1
+          ꦭꦶꦪꦤꦺ
+            kata := Gabung(kata, huruf);
+            k := k + 1;
+        ꦫꦩ꧀ꦥꦸꦁ;
+        hasilStr := kata;
+      ꦫꦩ꧀ꦥꦸꦁ;
+    j := j + 1;
+  ꦫꦩ꧀ꦥꦸꦁ;
+  AmbilFunc := hasilStr;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ KeywordKeToken(k : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ k = 'ꦩꦸꦭꦶ' ꦩꦺꦴꦁꦏꦺꦴ
+    KeywordKeToken := 10
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ k = 'ꦫꦩ꧀ꦥꦸꦁ' ꦩꦺꦴꦁꦏꦺꦴ
+      KeywordKeToken := 11
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ k = 'ꦠꦸꦭꦶꦱ꧀' ꦩꦺꦴꦁꦏꦺꦴ
+        KeywordKeToken := 20
+      ꦭꦶꦪꦤꦺ
+        ꦪꦺꦤ꧀ k = 'ꦪꦺꦤ꧀' ꦩꦺꦴꦁꦏꦺꦴ
+          KeywordKeToken := 12
+        ꦭꦶꦪꦤꦺ
+          ꦪꦺꦤ꧀ k = 'ꦩꦺꦴꦁꦏꦺꦴ' ꦩꦺꦴꦁꦏꦺꦴ
+            KeywordKeToken := 13
+          ꦭꦶꦪꦤꦺ
+            ꦪꦺꦤ꧀ k = 'ꦭꦶꦪꦤꦺ' ꦩꦺꦴꦁꦏꦺꦴ
+              KeywordKeToken := 14
+            ꦭꦶꦪꦤꦺ
+              ꦪꦺꦤ꧀ k = 'ꦱꦼꦭꦶꦫꦺ' ꦩꦺꦴꦁꦏꦺꦴ
+                KeywordKeToken := 15
+              ꦭꦶꦪꦤꦺ
+                ꦪꦺꦤ꧀ k = 'ꦭꦏꦺꦴꦤꦶ' ꦩꦺꦴꦁꦏꦺꦴ
+                  KeywordKeToken := 16
+                ꦭꦶꦪꦤꦺ
+                  ꦪꦺꦤ꧀ k = 'ꦥꦿꦺꦴꦱꦺꦢꦸꦂ' ꦩꦺꦴꦁꦏꦺꦴ
+                    KeywordKeToken := 17
+                  ꦭꦶꦪꦤꦺ
+                    ꦪꦺꦤ꧀ k = 'ꦥ꦳ꦸꦁꦱꦶ' ꦩꦺꦴꦁꦏꦺꦴ
+                      KeywordKeToken := 19
+                    ꦭꦶꦪꦤꦺ
+                      ꦪꦺꦤ꧀ k = 'ꦏꦁꦒꦺꦴ' ꦩꦺꦴꦁꦏꦺꦴ
+                        KeywordKeToken := 18
+                      ꦭꦶꦪꦤꦺ
+                        ꦪꦺꦤ꧀ k = 'ꦠꦸꦩꦼꦏ' ꦩꦺꦴꦁꦏꦺꦴ
+                          KeywordKeToken := 21
+                        ꦭꦶꦪꦤꦺ
+                          ꦪꦺꦤ꧀ k = 'begin' ꦩꦺꦴꦁꦏꦺꦴ
+                            KeywordKeToken := 10
+                          ꦭꦶꦪꦤꦺ
+                            ꦪꦺꦤ꧀ k = 'end' ꦩꦺꦴꦁꦏꦺꦴ
+                              KeywordKeToken := 11
+                            ꦭꦶꦪꦤꦺ
+                              ꦪꦺꦤ꧀ k = 'writeln' ꦩꦺꦴꦁꦏꦺꦴ
+                                KeywordKeToken := 20
+                              ꦭꦶꦪꦤꦺ
+                                ꦪꦺꦤ꧀ k = 'if' ꦩꦺꦴꦁꦏꦺꦴ
+                                  KeywordKeToken := 12
+                                ꦭꦶꦪꦤꦺ
+                                  ꦪꦺꦤ꧀ k = 'while' ꦩꦺꦴꦁꦏꦺꦴ
+                                    KeywordKeToken := 15
+                                  ꦭꦶꦪꦤꦺ
+                                    ꦪꦺꦤ꧀ k = 'for' ꦩꦺꦴꦁꦏꦺꦴ
+                                      KeywordKeToken := 18
+                                    ꦭꦶꦪꦤꦺ
+                                      ꦪꦺꦤ꧀ k = 'function' ꦩꦺꦴꦁꦏꦺꦴ
+                                        KeywordKeToken := 19
+                                      ꦭꦶꦪꦤꦺ
+                                        KeywordKeToken := 99;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ NextToken;
+ꦩꦸꦭꦶ
+  ꦱꦼꦭꦶꦫꦺ i <= panjang ꦭꦏꦺꦴꦤꦶ
+  ꦩꦸꦭꦶ
+    huruf := Ambil(kode, i);
+    ꦪꦺꦤ꧀ huruf = ' ' ꦩꦺꦴꦁꦏꦺꦴ
+      i := i + 1
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ ApaAngka(huruf) = 1 ꦩꦺꦴꦁꦏꦺꦴ
+        ꦩꦸꦭꦶ
+          kata := '';
+          ꦱꦼꦭꦶꦫꦺ i <= panjang ꦭꦏꦺꦴꦤꦶ
+          ꦩꦸꦭꦶ
+            huruf := Ambil(kode, i);
+            ꦪꦺꦤ꧀ ApaAngka(huruf) = 1 ꦩꦺꦴꦁꦏꦺꦴ
+            ꦩꦸꦭꦶ
+              kata := Gabung(kata, huruf);
+              i := i + 1;
+            ꦫꦩ꧀ꦥꦸꦁ
+            ꦭꦶꦪꦤꦺ
+              i := panjang + 1;
+          ꦫꦩ꧀ꦥꦸꦁ;
+          curToken := 30;
+          curText := kata;
+          i := i + 1;
+        ꦫꦩ꧀ꦥꦸꦁ
+        ꦭꦶꦪꦤꦺ
+          ꦪꦺꦤ꧀ ApaHuruf(huruf) = 1 ꦩꦸꦭꦶ
+          ꦩꦸꦭꦶ
+            kata := '';
+            ꦱꦼꦭꦶꦫꦺ i <= panjang ꦭꦏꦺꦴꦤꦶ
+            ꦩꦸꦭꦶ
+              huruf := Ambil(kode, i);
+              ꦪꦺꦤ꧀ ApaHuruf(huruf) = 1 ꦩꦺꦴꦁꦏꦺꦴ
+              ꦩꦸꦭꦶ
+                kata := Gabung(kata, huruf);
+                i := i + 1;
+              ꦫꦩ꧀ꦥꦸꦁ
+              ꦭꦶꦪꦤꦺ
+                ꦪꦺꦤ꧀ ApaAngka(huruf) = 1 ꦩꦺꦴꦁꦏꦺꦴ
+                ꦩꦸꦭꦶ
+                  kata := Gabung(kata, huruf);
+                  i := i + 1;
+                ꦫꦩ꧀ꦥꦸꦁ
+                ꦭꦶꦪꦤꦺ
+                  i := panjang + 1;
+            ꦫꦩ꧀ꦥꦸꦁ;
+            curToken := KeywordKeToken(kata);
+            curText := kata;
+          ꦫꦩ꧀ꦥꦸꦁ
+          ꦭꦶꦪꦤꦺ
+            ꦪꦺꦤ꧀ huruf = ':' ꦩꦺꦴꦁꦏꦺꦴ
+              ꦪꦺꦤ꧀ Ambil(kode, i + 1) = '=' ꦩꦺꦴꦁꦏꦺꦴ
+              ꦩꦸꦭꦶ
+                curToken := 40;
+                curText := ':=';
+                i := i + 2;
+              ꦫꦩ꧀ꦥꦸꦁ
+              ꦭꦶꦪꦤꦺ
+                curToken := 42;
+                curText := ':';
+                i := i + 1
+            ꦭꦶꦪꦤꦺ
+              ꦪꦺꦤ꧀ huruf = ';' ꦩꦺꦴꦁꦏꦺꦴ
+                curToken := 41;
+                curText := ';';
+                i := i + 1
+              ꦭꦶꦪꦤꦺ
+                ꦪꦺꦤ꧀ huruf = '.' ꦩꦺꦴꦁꦏꦺꦴ
+                  curToken := 44;
+                  curText := '.';
+                  i := i + 1
+                ꦭꦶꦪꦤꦺ
+                  ꦪꦺꦤ꧀ huruf = '(' ꦩꦺꦴꦁꦏꦺꦴ
+                    curToken := 45;
+                    curText := '(';
+                    i := i + 1
+                  ꦭꦶꦪꦤꦺ
+                    ꦪꦺꦤ꧀ huruf = ')' ꦩꦺꦴꦁꦏꦺꦴ
+                      curToken := 46;
+                      curText := ')';
+                      i := i + 1
+                    ꦭꦶꦪꦤꦺ
+                      ꦪꦺꦤ꧀ huruf = '+' ꦩꦺꦴꦁꦏꦺꦴ
+                        curToken := 50;
+                        curText := '+';
+                        i := i + 1
+                      ꦭꦶꦪꦤꦺ
+                        ꦪꦺꦤ꧀ huruf = '-' ꦩꦺꦴꦁꦏꦺꦴ
+                          curToken := 51;
+                          curText := '-';
+                          i := i + 1
+                        ꦭꦶꦪꦤꦺ
+                          ꦪꦺꦤ꧀ huruf = '*' ꦩꦺꦴꦁꦏꦺꦴ
+                            curToken := 52;
+                            curText := '*';
+                            i := i + 1
+                          ꦭꦶꦪꦤꦺ
+                            ꦪꦺꦤ꧀ huruf = '<' ꦩꦺꦴꦁꦏꦺꦴ
+                              curToken := 60;
+                              curText := '<';
+                              i := i + 1
+                            ꦭꦶꦪꦤꦺ
+                              ꦪꦺꦤ꧀ huruf = '>' ꦩꦺꦴꦁꦏꦺꦴ
+                                curToken := 61;
+                                curText := '>';
+                                i := i + 1
+                              ꦭꦶꦪꦤꦺ
+                                ꦪꦺꦤ꧀ huruf = '=' ꦩꦺꦴꦁꦏꦺꦴ
+                                  curToken := 62;
+                                  curText := '=';
+                                  i := i + 1
+                                ꦭꦶꦪꦤꦺ
+                                  curToken := 0;
+                                  curText := '';
+                                  i := i + 1;
+            i := panjang + 1;
+  ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ SimpanPos;
+ꦩꦸꦭꦶ
+  savedI := i;
+  savedToken := curToken;
+  savedText := curText;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ KembaliPos;
+ꦩꦸꦭꦶ
+  i := savedI;
+  curToken := savedToken;
+  curText := savedText;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ EvalExpr;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ curToken = 30 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦩꦸꦭꦶ
+      hasilExpr := StrKeAngka(curText);
+      NextToken;
+    ꦫꦩ꧀ꦥꦸꦁ
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ curToken = 99 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        namaVar := curText;
+        NextToken;
+        ꦪꦺꦤ꧀ curToken = 45 ꦩꦺꦴꦁꦏꦺꦴ
+          ꦩꦸꦭꦶ
+            NextToken;
+            ꦪꦺꦤ꧀ curToken = 46 ꦩꦺꦴꦁꦏꦺꦴ
+              NextToken;
+            procBody := AmbilFunc(namaVar);
+            ꦪꦺꦤ꧀ procBody <> '' ꦩꦺꦴꦁꦏꦺꦴ
+              ꦩꦸꦭꦶ
+                savedKode := kode;
+                savedPanjang := panjang;
+                savedI := i;
+                savedToken := curToken;
+                savedText := curText;
+                kode := procBody;
+                panjang := Panjang(kode);
+                i := 1;
+                NextToken;
+                ExecStmt;
+                hasilExpr := AmbilVar(namaVar);
+                kode := savedKode;
+                panjang := savedPanjang;
+                i := savedI;
+                curToken := savedToken;
+                curText := savedText;
+              ꦫꦩ꧀ꦥꦸꦁ
+            ꦭꦶꦪꦤꦺ
+              hasilExpr := AmbilVar(namaVar);
+          ꦫꦩ꧀ꦥꦸꦁ
+        ꦭꦶꦪꦤꦺ
+          hasilExpr := AmbilVar(namaVar);
+      ꦫꦩ꧀ꦥꦸꦁ;
+  ꦪꦺꦤ꧀ curToken = 50 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦩꦸꦭꦶ
+      nilai := hasilExpr;
+      NextToken;
+      EvalExpr;
+      hasilExpr := nilai + hasilExpr;
+    ꦫꦩ꧀ꦥꦸꦁ
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ curToken = 51 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        nilai := hasilExpr;
+        NextToken;
+        EvalExpr;
+        hasilExpr := nilai - hasilExpr;
+      ꦫꦩ꧀ꦥꦸꦁ
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ curToken = 52 ꦩꦺꦴꦁꦏꦺꦴ
+        ꦩꦸꦭꦶ
+          nilai := hasilExpr;
+          NextToken;
+          EvalExpr;
+          hasilExpr := nilai * hasilExpr;
+        ꦫꦩ꧀ꦥꦸꦁ
+      ꦭꦶꦪꦤꦺ
+        ꦪꦺꦤ꧀ curToken = 60 ꦩꦺꦴꦁꦏꦺꦴ
+          ꦩꦸꦭꦶ
+            nilai := hasilExpr;
+            NextToken;
+            EvalExpr;
+            ꦪꦺꦤ꧀ nilai < hasilExpr ꦩꦺꦴꦁꦏꦺꦴ
+              hasilExpr := 1
+            ꦭꦶꦪꦤꦺ
+              hasilExpr := 0;
+          ꦫꦩ꧀ꦥꦸꦁ
+        ꦭꦶꦪꦤꦺ
+          ꦪꦺꦤ꧀ curToken = 62 ꦩꦺꦴꦁꦏꦺꦴ
+            ꦩꦸꦭꦶ
+              nilai := hasilExpr;
+              NextToken;
+              EvalExpr;
+              ꦪꦺꦤ꧀ nilai = hasilExpr ꦩꦺꦴꦁꦏꦺꦴ
+                hasilExpr := 1
+              ꦭꦶꦪꦤꦺ
+                hasilExpr := 0;
+            ꦫꦩ꧀ꦥꦸꦁ
+          ꦭꦶꦪꦤꦺ
+            ꦪꦺꦤ꧀ curToken = 61 ꦩꦺꦴꦁꦏꦺꦴ
+              ꦩꦸꦭꦶ
+                nilai := hasilExpr;
+                NextToken;
+                EvalExpr;
+                ꦪꦺꦤ꧀ nilai > hasilExpr ꦩꦺꦴꦁꦏꦺꦴ
+                  hasilExpr := 1
+                ꦭꦶꦪꦤꦺ
+                  hasilExpr := 0;
+              ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ SkipStmt;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ curToken = 10 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦩꦸꦭꦶ
+      NextToken;
+      SkipStmt;
+      ꦪꦺꦤ꧀ curToken = 41 ꦩꦺꦴꦁꦏꦺꦴ
+        NextToken;
+      SkipStmt;
+    ꦫꦩ꧀ꦥꦸꦁ
+  ꦭꦶꦪꦤꦺ
+    ꦩꦸꦭꦶ
+      ꦱꦼꦭꦶꦫꦺ curToken <> 41 ꦭꦏꦺꦴꦤꦶ
+      ꦩꦸꦭꦶ
+        NextToken;
+      ꦫꦩ꧀ꦥꦸꦁ;
+    ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ ExecStmt;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ curToken = 10 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦩꦸꦭꦶ
+      NextToken;
+      ExecStmt;
+      ꦪꦺꦤ꧀ curToken = 41 ꦩꦺꦴꦁꦏꦺꦴ
+        NextToken;
+      ExecStmt;
+    ꦫꦩ꧀ꦥꦸꦁ
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ curToken = 20 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        NextToken;
+        NextToken;
+        EvalExpr;
+        NextToken;
+        ꦠꦸꦭꦶꦱ꧀(hasilExpr);
+      ꦫꦩ꧀ꦥꦸꦁ
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ curToken = 12 ꦩꦺꦴꦁꦏꦺꦴ
+        ꦩꦸꦭꦶ
+          NextToken;
+          EvalExpr;
+          cond := hasilExpr;
+          NextToken;
+          ꦪꦺꦤ꧀ cond = 1 ꦩꦺꦴꦁꦏꦺꦴ
+            ExecStmt
+          ꦭꦶꦪꦤꦺ
+            SkipStmt;
+          ꦪꦺꦤ꧀ curToken = 14 ꦩꦺꦴꦁꦏꦺꦴ
+            ꦩꦸꦭꦶ
+              NextToken;
+              ꦪꦺꦤ꧀ cond = 1 ꦩꦺꦴꦁꦏꦺꦴ
+                SkipStmt
+              ꦭꦶꦪꦤꦺ
+                ExecStmt;
+            ꦫꦩ꧀ꦥꦸꦁ;
+        ꦫꦩ꧀ꦥꦸꦁ
+      ꦭꦶꦪꦤꦺ
+        ꦪꦺꦤ꧀ curToken = 15 ꦩꦺꦴꦁꦏꦺꦴ
+          ꦩꦸꦭꦶ
+            NextToken;
+            SimpanPos;
+            EvalExpr;
+            cond := hasilExpr;
+            NextToken;
+            ꦱꦼꦭꦶꦫꦺ cond = 1 ꦭꦏꦺꦴꦤꦶ
+            ꦩꦸꦭꦶ
+              ExecStmt;
+              KembaliPos;
+              EvalExpr;
+              cond := hasilExpr;
+              NextToken;
+            ꦫꦩ꧀ꦥꦸꦁ;
+            SkipStmt;
+          ꦫꦩ꧀ꦥꦸꦁ
+        ꦭꦶꦪꦤꦺ
+          ꦪꦺꦤ꧀ curToken = 18 ꦩꦺꦴꦁꦏꦺꦴ
+            ꦩꦸꦭꦶ
+              NextToken;
+              forVar := curText;
+              NextToken;
+              NextToken;
+              EvalExpr;
+              forAwal := hasilExpr;
+              NextToken;
+              NextToken;
+              EvalExpr;
+              forAkhir := hasilExpr;
+              NextToken;
+              SimpanPos;
+              forCur := forAwal;
+              ꦱꦼꦭꦶꦫꦺ forCur <= forAkhir ꦭꦏꦺꦴꦤꦶ
+              ꦩꦸꦭꦶ
+                SimpanVar(forVar, forCur);
+                ExecStmt;
+                KembaliPos;
+                forCur := forCur + 1;
+              ꦫꦩ꧀ꦥꦸꦁ;
+              SkipStmt;
+            ꦫꦩ꧀ꦥꦸꦁ
+          ꦭꦶꦪꦤꦺ
+            ꦪꦺꦤ꧀ curToken = 17 ꦩꦺꦴꦁꦏꦺꦴ
+              ꦩꦸꦭꦶ
+                NextToken;
+                procNama := curText;
+                NextToken;
+                ꦱꦼꦭꦶꦫꦺ curToken <> 10 ꦭꦏꦺꦴꦤꦶ
+                ꦩꦸꦭꦶ
+                  NextToken;
+                ꦫꦩ꧀ꦥꦸꦁ;
+                NextToken;
+                procBody := '';
+                depth := 1;
+                ꦱꦼꦭꦶꦫꦺ depth > 0 ꦭꦏꦺꦴꦤꦶ
+                ꦩꦸꦭꦶ
+                  ꦪꦺꦤ꧀ curToken = 10 ꦩꦺꦴꦁꦏꦺꦴ
+                    depth := depth + 1
+                  ꦭꦶꦪꦤꦺ
+                    ꦪꦺꦤ꧀ curToken = 11 ꦩꦺꦴꦁꦏꦺꦴ
+                      depth := depth - 1;
+                  ꦪꦺꦤ꧀ depth > 0 ꦩꦺꦴꦁꦏꦺꦴ
+                    procBody := Gabung(procBody, curText);
+                  procBody := Gabung(procBody, ' ');
+                  NextToken;
+                ꦫꦩ꧀ꦥꦸꦁ;
+                SimpanProc(procNama, procBody);
+                NextToken;
+              ꦫꦩ꧀ꦥꦸꦁ
+            ꦭꦶꦪꦤꦺ
+              ꦪꦺꦤ꧀ curToken = 19 ꦩꦺꦴꦁꦏꦺꦴ
+                ꦩꦸꦭꦶ
+                  NextToken;
+                  funcNama := curText;
+                  NextToken;
+                  ꦱꦼꦭꦶꦫꦺ curToken <> 10 ꦭꦏꦺꦴꦤꦶ
+                  ꦩꦸꦭꦶ
+                    NextToken;
+                  ꦫꦩ꧀ꦥꦸꦁ;
+                  NextToken;
+                  procBody := '';
+                  depth := 1;
+                  ꦱꦼꦭꦶꦫꦺ depth > 0 ꦭꦏꦺꦴꦤꦶ
+                  ꦩꦸꦭꦶ
+                    ꦪꦺꦤ꧀ curToken = 10 ꦩꦺꦴꦁꦏꦺꦴ
+                      depth := depth + 1
+                    ꦭꦶꦪꦤꦺ
+                      ꦪꦺꦤ꧀ curToken = 11 ꦩꦺꦴꦁꦏꦺꦴ
+                        depth := depth - 1;
+                    ꦪꦺꦤ꧀ depth > 0 ꦩꦺꦴꦁꦏꦺꦴ
+                      procBody := Gabung(procBody, curText);
+                    procBody := Gabung(procBody, ' ');
+                    NextToken;
+                  ꦫꦩ꧀ꦥꦸꦁ;
+                  SimpanFunc(funcNama, procBody);
+                  NextToken;
+                ꦫꦩ꧀ꦥꦸꦁ
+              ꦭꦶꦪꦤꦺ
+                ꦪꦺꦤ꧀ curToken = 99 ꦩꦺꦴꦁꦏꦺꦴ
+                  ꦩꦸꦭꦶ
+                    namaVar := curText;
+                    NextToken;
+                    ꦪꦺꦤ꧀ curToken = 40 ꦩꦺꦴꦁꦏꦺꦴ
+                      ꦩꦸꦭꦶ
+                        NextToken;
+                        EvalExpr;
+                        SimpanVar(namaVar, hasilExpr);
+                      ꦫꦩ꧀ꦥꦸꦁ
+                    ꦭꦶꦪꦤꦺ
+                      ꦪꦺꦤ꧀ curToken = 45 ꦩꦺꦴꦁꦏꦺꦴ
+                        ꦩꦸꦭꦶ
+                          procBody := AmbilProc(namaVar);
+                          ꦪꦺꦤ꧀ procBody <> '' ꦩꦺꦴꦁꦏꦺꦴ
+                            ꦩꦸꦭꦶ
+                              savedKode := kode;
+                              savedPanjang := panjang;
+                              savedI := i;
+                              savedToken := curToken;
+                              savedText := curText;
+                              kode := procBody;
+                              panjang := Panjang(kode);
+                              i := 1;
+                              NextToken;
+                              ExecStmt;
+                              kode := savedKode;
+                              panjang := savedPanjang;
+                              i := savedI;
+                              curToken := savedToken;
+                              curText := savedText;
+                            ꦫꦩ꧀ꦥꦸꦁ;
+                          NextToken;
+                          NextToken;
+                        ꦫꦩ꧀ꦥꦸꦁ;
+                  ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ JumlahParam() >= 1 ꦩꦺꦴꦁꦏꦺꦴ
+    namaFile := Param(1)
+  ꦭꦶꦪꦤꦺ
+    namaFile := 'testku.pas';
+  ꦠꦸꦭꦶꦱ꧀('VM 100 mulai, file:');
+  ꦠꦸꦭꦶꦱ꧀(namaFile);
+  kode := BacaFile(namaFile);
+  ꦪꦺꦤ꧀ kode = '' ꦩꦺꦴꦁꦏꦺꦴ
+    kode := 'ꦩꦸꦭꦶ x := 0; ꦏꦁꦒꦺꦴ x ꦠꦸꦩꦼꦏ 3 ꦭꦏꦺꦴꦤꦶ ꦠꦸꦭꦶꦱ꧀(x); ꦫꦩ꧀ꦥꦸꦁ.';
+  panjang := Panjang(kode);
+  i := 1;
+  varSimpan := '';
+  procSimpan := '';
+  funcSimpan := '';
+  NextToken;
+  ExecStmt;
+  ꦠꦸꦭꦶꦱ꧀('VM 100 selesai');
+ꦫꦩ꧀ꦥꦸꦁ.
