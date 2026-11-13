@@ -1,0 +1,23 @@
+{
+  "name": "hanacaraka",
+  "displayName": "Hanacaraka Language Support",
+  "description": "Bahasa pemrograman pakai aksara Jawa. Ekstensi .jkf (Jawa Kode File)",
+  "version": "1.1.0",
+  "contributes": {
+    "languages": [
+      {
+        "id": "hanacaraka",
+        "aliases": ["Hanacaraka"],
+        "extensions": [".jkf", ".hana"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "hanacaraka",
+        "scopeName": "source.hanacaraka",
+        "path": "./syntaxes/hanacaraka.tmLanguage.json"
+      }
+    ]
+  }
+}
