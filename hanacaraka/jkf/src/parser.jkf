@@ -1,0 +1,108 @@
+ꦥꦿꦺꦴꦒꦿꦩ꧀ Parser;
+ꦮꦂ
+  hasilExpr : ꦲꦁꦏ;
+  namaVar : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  namaModul : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  pathModul : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  kodeImport : ꦠꦼꦩ꧀ꦧꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ ExecGunakan;
+ꦩꦸꦭꦶ
+  NextToken;
+  ꦱꦼꦭꦶꦫꦺ 1 = 1 ꦭꦏꦺꦴꦤꦶ
+  ꦩꦸꦭꦶ
+    ꦪꦺꦤ꧀ curToken = 31 ꦩꦺꦴꦁꦏꦺꦴ
+      namaModul := curText
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ curToken = 99 ꦩꦺꦴꦁꦏꦺꦴ
+        namaModul := curText
+      ꦭꦶꦪꦤꦺ
+        TampilError('Setelah ꦒꦸꦤꦏꦏꦺ harus ada nama modul, contoh: ꦒꦸꦤꦏꦏꦺ error, lexer;', baris, kolom);
+    ꦪꦺꦤ꧀ adaError = 1 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦫꦩ꧀ꦥꦸꦁ;
+    pathModul := CariFileModul(namaModul);
+    ꦪꦺꦤ꧀ pathModul = '' ꦩꦺꦴꦁꦏꦺꦴ
+      TampilError('File modul tidak ditemukan', baris, kolom);
+    ꦪꦺꦤ꧀ adaError = 1 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦫꦩ꧀ꦥꦸꦁ;
+    ꦪꦺꦤ꧀ SudahDiImport(namaModul) = 0 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        TandaiDiImport(namaModul);
+        kodeImport := BacaFile(pathModul);
+        ꦠꦸꦭꦶꦱ꧀('Load modul:');
+        ꦠꦸꦭꦶꦱ꧀(pathModul);
+      ꦫꦩ꧀ꦥꦸꦁ;
+    NextToken;
+    ꦪꦺꦤ꧀ curToken = 42 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        NextToken;
+      ꦫꦩ꧀ꦥꦸꦁ
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ curToken = 41 ꦩꦺꦴꦁꦏꦺꦴ
+        ꦩꦸꦭꦶ
+          NextToken;
+          ꦫꦩ꧀ꦥꦸꦁ;
+        ꦫꦩ꧀ꦥꦸꦁ
+      ꦭꦶꦪꦤꦺ
+        TampilError('Setelah nama modul harus ada , atau ;', baris, kolom);
+        ꦫꦩ꧀ꦥꦸꦁ;
+  ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ EvalExpr;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ curToken = 30 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦩꦸꦭꦶ
+      hasilExpr := StrKeAngka(curText);
+      NextToken;
+    ꦫꦩ꧀ꦥꦸꦁ
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ curToken = 99 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        hasilExpr := AmbilVar(curText);
+        NextToken;
+      ꦫꦩ꧀ꦥꦸꦁ
+    ꦭꦶꦪꦤꦺ
+      TampilError('Diharapkan angka atau variabel', baris, kolom);
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ ExecStmt;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ adaError = 1 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦫꦩ꧀ꦥꦸꦁ;
+  ꦪꦺꦤ꧀ curToken = 60 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦩꦸꦭꦶ
+      ExecGunakan;
+      ExecStmt;
+    ꦫꦩ꧀ꦥꦸꦁ
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ curToken = 10 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        NextToken;
+        ExecStmt;
+      ꦫꦩ꧀ꦥꦸꦁ
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ curToken = 20 ꦩꦺꦴꦁꦏꦺꦴ
+        ꦩꦸꦭꦶ
+          NextToken;
+          CekToken(45, curToken, 'Setelah ꦠꦸꦭꦶꦱ꧀ harus ada (, contoh: ꦠꦸꦭꦶꦱ꧀(x)', baris, kolom);
+          NextToken;
+          EvalExpr;
+          CekToken(46, curToken, 'Setelah ekspresi harus ada )', baris, kolom);
+          NextToken;
+          ꦠꦸꦭꦶꦱ꧀(hasilExpr);
+        ꦫꦩ꧀ꦥꦸꦁ
+      ꦭꦶꦪꦤꦺ
+        ꦪꦺꦤ꧀ curToken = 99 ꦩꦺꦴꦁꦏꦺꦴ
+          ꦩꦸꦭꦶ
+            namaVar := curText;
+            NextToken;
+            CekToken(40, curToken, 'Setelah variabel harus ada :=, contoh: x := 10', baris, kolom);
+            NextToken;
+            EvalExpr;
+            SimpanVar(namaVar, hasilExpr);
+          ꦫꦩ꧀ꦥꦸꦁ
+        ꦭꦶꦪꦤꦺ
+          TampilError('Statement tidak dikenal', baris, kolom);
+ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ.
