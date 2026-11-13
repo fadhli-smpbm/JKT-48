@@ -1,0 +1,10 @@
+ꦥꦿꦺꦴꦒꦿꦩ꧀ Variabel;
+ꦮꦂ x, umur, totalGaji : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  x := 10;
+  umur := 20;
+  totalGaji := x * umur + 100;
+  ꦠꦸꦭꦶꦱ꧀(x);
+  ꦠꦸꦭꦶꦱ꧀(umur);
+  ꦠꦸꦭꦶꦱ꧀(totalGaji);
+ꦫꦩ꧀ꦥꦸꦁ.
