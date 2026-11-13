@@ -1,0 +1,10 @@
+ꦥꦿꦺꦴꦒꦿꦩ꧀ Tebak;
+ꦮꦂ jawaban, tebakan : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  jawaban := 7;
+  tebakan := 7;
+  ꦪꦺꦤ꧀ tebakan = jawaban ꦩꦺꦴꦁꦏꦺꦴ
+    ꦠꦸꦭꦶꦱ꧀(1)
+  ꦭꦶꦪꦤꦺ
+    ꦠꦸꦭꦶꦱ꧀(0);
+ꦫꦩ꧀ꦥꦸꦁ.
