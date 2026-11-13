@@ -1,3 +1,5 @@
 {
-  "recommendations": ["ms-vscode.vscode-json"]
+  "comments": { "lineComment": "//" },
+  "brackets": [["ꦩꦸꦭꦶ", "ꦫꦩ꧀ꦥꦸꦁ"], ["(", ")"]],
+  "autoClosingPairs": [["ꦩꦸꦭꦶ", "ꦫꦩ꧀ꦥꦸꦁ"], ["(", ")"]]
 }
