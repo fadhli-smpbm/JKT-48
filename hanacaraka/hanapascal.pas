@@ -18,7 +18,7 @@ type
 
   TOp = (opPushInt, opPushStr, opLoad, opStore, opAdd, opSub, opMul, opDiv,
          opLT, opGT, opEQ, opLE, opGE, opNE, opAnd, opOr, opNot,
-         opJmp, opJmpFalse, opPrint, opRead, opCall, opRet, opHalt);
+         opJmp, opJmpFalse, opPrint, opRead, opCall, opRet, opHalt, opPop);
 
   TInstr = record
     Op: TOp;
@@ -33,6 +33,7 @@ var
   CurText: UnicodeString;
   Code: array of TInstr;
   ProcAddr: TStringList;
+ ProcIsFunc: TStringList; // nama -> 1 kalau function, 0 kalau procedure
   ProcParamCount: TStringList; // nama proc -> jumlah param
   GlobalVars: TStringList;
 
@@ -366,7 +367,10 @@ begin
   end;
   Expect(tkSemi);
   JmpOver := Emit(opJmp);
-  ProcAddr.Values[Name] := IntToStr(Length(Code));
+  ProcAddr.Values[Name] :=
+if IsFunc then ProcIsFunc.Values[Name] := '1'
+else ProcIsFunc.Values[Name] := '0';
+ // IntToStr(Length(Code));
   ProcParamCount.Values[Name] := IntToStr(Params.Count);
   // Ambil parameter dari stack, dibalik!
   // Stack: [arg1, arg2] -> Pop arg2 dulu jadi param terakhir
