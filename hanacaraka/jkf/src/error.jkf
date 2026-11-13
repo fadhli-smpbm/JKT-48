@@ -1,0 +1,31 @@
+ꦥꦿꦺꦴꦒꦿꦩ꧀ Error;
+ꦮꦂ
+  adaError : ꦲꦁꦏ;
+  pesanError : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  barisError : ꦲꦁꦏ;
+  kolomError : ꦲꦁꦏ;
+  namaFile : ꦠꦼꦩ꧀ꦧꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ TampilError(pesan : ꦠꦼꦩ꧀ꦧꦸꦁ; baris : ꦲꦁꦏ; kolom : ꦲꦁꦏ);
+ꦩꦸꦭꦶ
+  adaError := 1;
+  pesanError := pesan;
+  barisError := baris;
+  kolomError := kolom;
+  ꦠꦸꦭꦶꦱ꧀('=== ERROR ===');
+  ꦠꦸꦭꦶꦱ꧀('File:');
+  ꦠꦸꦭꦶꦱ꧀(namaFile);
+  ꦠꦸꦭꦶꦱ꧀('Baris:');
+  ꦠꦸꦭꦶꦱ꧀(barisError);
+  ꦠꦸꦭꦶꦱ꧀('Kolom:');
+  ꦠꦸꦭꦶꦱ꧀(kolomError);
+  ꦠꦸꦭꦶꦱ꧀('Pesan:');
+  ꦠꦸꦭꦶꦱ꧀(pesan);
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ CekToken(harus : ꦲꦁꦏ; dapat : ꦲꦁꦏ; pesan : ꦠꦼꦩ꧀ꦧꦸꦁ; baris : ꦲꦁꦏ; kolom : ꦲꦁꦏ);
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ dapat <> harus ꦩꦺꦴꦁꦏꦺꦴ
+    TampilError(pesan, baris, kolom);
+ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ.
