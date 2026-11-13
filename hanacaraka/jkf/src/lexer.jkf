@@ -1,0 +1,185 @@
+ꦥꦿꦺꦴꦒꦿꦩ꧀ Lexer;
+ꦮꦂ
+  kode : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  i : ꦲꦁꦏ;
+  panjang : ꦲꦁꦏ;
+  baris : ꦲꦁꦏ;
+  kolom : ꦲꦁꦏ;
+  curToken : ꦲꦁꦏ;
+  curText : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  kata : ꦠꦼꦩ꧀ꦧꦸꦁ;
+  huruf : ꦠꦼꦩ꧀ꦧꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ ApaHuruf(h : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ Kode(h) >= 65 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦪꦺꦤ꧀ Kode(h) <= 90 ꦩꦺꦴꦁꦏꦺꦴ
+      ApaHuruf := 1
+    ꦭꦶꦪꦤꦺ
+      ApaHuruf := 0
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ Kode(h) >= 43008 ꦩꦺꦴꦁꦏꦺꦴ
+      ꦪꦺꦤ꧀ Kode(h) <= 43135 ꦩꦺꦴꦁꦏꦺꦴ
+        ApaHuruf := 1
+      ꦭꦶꦪꦤꦺ
+        ApaHuruf := 0
+    ꦭꦶꦪꦤꦺ
+      ApaHuruf := 0;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ ApaAngka(h : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ Kode(h) >= 48 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦪꦺꦤ꧀ Kode(h) <= 57 ꦩꦺꦴꦁꦏꦺꦴ
+      ApaAngka := 1
+    ꦭꦶꦪꦤꦺ
+      ApaAngka := 0
+  ꦭꦶꦪꦤꦺ
+    ApaAngka := 0;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ KeywordKeToken(k : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ k = 'ꦩꦸꦭꦶ' ꦩꦺꦴꦁꦏꦺꦴ
+    KeywordKeToken := 10
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ k = 'ꦫꦩ꧀ꦥꦸꦁ' ꦩꦺꦴꦁꦏꦺꦴ
+      KeywordKeToken := 11
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ k = 'ꦠꦸꦭꦶꦱ꧀' ꦩꦺꦴꦁꦏꦺꦴ
+        KeywordKeToken := 20
+      ꦭꦶꦪꦤꦺ
+        ꦪꦺꦤ꧀ k = 'ꦪꦺꦤ꧀' ꦩꦺꦴꦁꦏꦺꦴ
+          KeywordKeToken := 12
+        ꦭꦶꦪꦤꦺ
+          ꦪꦺꦤ꧀ k = 'ꦒꦸꦤꦏꦏꦺ' ꦩꦺꦴꦁꦏꦺꦴ
+            KeywordKeToken := 60
+          ꦭꦶꦪꦤꦺ
+            ꦪꦺꦤ꧀ k = 'gunakan' ꦩꦺꦴꦁꦏꦺꦴ
+              KeywordKeToken := 60
+            ꦭꦶꦪꦤꦺ
+              KeywordKeToken := 99;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ NextToken;
+ꦩꦸꦭꦶ
+  ꦱꦼꦭꦶꦫꦺ i <= panjang ꦭꦏꦺꦴꦤꦶ
+  ꦩꦸꦭꦶ
+    huruf := Ambil(kode, i);
+    ꦪꦺꦤ꧀ huruf = ' ' ꦩꦺꦴꦁꦏꦺꦴ
+      ꦩꦸꦭꦶ
+        i := i + 1;
+        kolom := kolom + 1;
+      ꦫꦩ꧀ꦥꦸꦁ
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ huruf = Chr(10) ꦩꦺꦴꦁꦏꦺꦴ
+        ꦩꦸꦭꦶ
+          i := i + 1;
+          baris := baris + 1;
+          kolom := 1;
+        ꦫꦩ꧀ꦥꦸꦁ
+      ꦭꦶꦪꦤꦺ
+        ꦪꦺꦤ꧀ huruf = ',' ꦩꦺꦴꦁꦏꦺꦴ
+          ꦩꦸꦭꦶ
+            curToken := 42;
+            curText := ',';
+            i := i + 1;
+            kolom := kolom + 1;
+          ꦫꦩ꧀ꦥꦸꦁ
+        ꦭꦶꦪꦤꦺ
+          ꦪꦺꦤ꧀ huruf = Chr(39) ꦩꦺꦴꦁꦏꦺꦴ
+            ꦩꦸꦭꦶ
+              kata := '';
+              i := i + 1;
+              kolom := kolom + 1;
+              ꦱꦼꦭꦶꦫꦺ i <= panjang ꦭꦏꦺꦴꦤꦶ
+              ꦩꦸꦭꦶ
+                huruf := Ambil(kode, i);
+                ꦪꦺꦤ꧀ huruf = Chr(39) ꦩꦸꦭꦶ
+                  i := panjang + 1
+                ꦭꦶꦪꦤꦺ
+                  ꦩꦸꦭꦶ
+                    kata := Gabung(kata, huruf);
+                    i := i + 1;
+                    kolom := kolom + 1;
+                  ꦫꦩ꧀ꦥꦸꦁ;
+              ꦫꦩ꧀ꦥꦸꦁ;
+              curToken := 31;
+              curText := kata;
+              i := i + 1;
+              kolom := kolom + 1;
+            ꦫꦩ꧀ꦥꦸꦁ
+          ꦭꦶꦪꦤꦺ
+            ꦪꦺꦤ꧀ ApaAngka(huruf) = 1 ꦩꦺꦴꦁꦏꦺꦴ
+              ꦩꦸꦭꦶ
+                kata := '';
+                ꦱꦼꦭꦶꦫꦺ i <= panjang ꦭꦏꦺꦴꦤꦶ
+                ꦩꦸꦭꦶ
+                  huruf := Ambil(kode, i);
+                  ꦪꦺꦤ꧀ ApaAngka(huruf) = 1 ꦩꦸꦭꦶ
+                  ꦩꦸꦭꦶ
+                    kata := Gabung(kata, huruf);
+                    i := i + 1;
+                    kolom := kolom + 1;
+                  ꦫꦩ꧀ꦥꦸꦁ
+                  ꦭꦶꦪꦤꦺ
+                    i := panjang + 1;
+                ꦫꦩ꧀ꦥꦸꦁ;
+                curToken := 30;
+                curText := kata;
+              ꦫꦩ꧀ꦥꦸꦁ
+            ꦭꦶꦪꦤꦺ
+              ꦪꦺꦤ꧀ ApaHuruf(huruf) = 1 ꦩꦸꦭꦶ
+                ꦩꦸꦭꦶ
+                  kata := '';
+                  ꦱꦼꦭꦶꦫꦺ i <= panjang ꦭꦏꦺꦴꦤꦶ
+                  ꦩꦸꦭꦶ
+                    huruf := Ambil(kode, i);
+                    ꦪꦺꦤ꧀ ApaHuruf(huruf) = 1 ꦩꦸꦭꦶ
+                    ꦩꦸꦭꦶ
+                      kata := Gabung(kata, huruf);
+                      i := i + 1;
+                      kolom := kolom + 1;
+                    ꦫꦩ꧀ꦥꦸꦁ
+                    ꦭꦶꦪꦤꦺ
+                      i := panjang + 1;
+                  ꦫꦩ꧀ꦥꦸꦁ;
+                  curToken := KeywordKeToken(kata);
+                  curText := kata;
+                ꦫꦩ꧀ꦥꦸꦁ
+              ꦭꦶꦪꦤꦺ
+                ꦪꦺꦤ꧀ huruf = ':' ꦩꦺꦴꦁꦏꦺꦴ
+                  ꦪꦺꦤ꧀ Ambil(kode, i + 1) = '=' ꦩꦺꦴꦁꦏꦺꦴ
+                  ꦩꦸꦭꦶ
+                    curToken := 40;
+                    curText := ':=';
+                    i := i + 2;
+                    kolom := kolom + 2;
+                  ꦫꦩ꧀ꦥꦸꦁ
+                  ꦭꦶꦪꦤꦺ
+                    TampilError('Ditemukan : tapi bukan :=, mungkin lupa =', baris, kolom);
+                ꦭꦶꦪꦤꦺ
+                  ꦪꦺꦤ꧀ huruf = ';' ꦩꦺꦴꦁꦏꦺꦴ
+                    curToken := 41;
+                    curText := ';';
+                    i := i + 1;
+                    kolom := kolom + 1
+                  ꦭꦶꦪꦤꦺ
+                    ꦪꦺꦤ꧀ huruf = '(' ꦩꦺꦴꦁꦏꦺꦴ
+                      curToken := 45;
+                      curText := '(';
+                      i := i + 1;
+                      kolom := kolom + 1
+                    ꦭꦶꦪꦤꦺ
+                      ꦪꦺꦤ꧀ huruf = ')' ꦩꦺꦴꦁꦏꦺꦴ
+                        curToken := 46;
+                        curText := ')';
+                        i := i + 1;
+                        kolom := kolom + 1
+                      ꦭꦶꦪꦤꦺ
+                        curToken := 0;
+                        i := i + 1;
+                i := panjang + 1;
+  ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ.
