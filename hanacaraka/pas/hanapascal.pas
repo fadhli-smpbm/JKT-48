@@ -4,7 +4,7 @@ program hanapascal;
 
 uses
   SysUtils, Classes,
-  uError, uLexer, uParser, uVM, uCodegen;
+  uError, uLexer, uParser, uVM, uCodegen, uImport;
 
 var
   Kode: string;
@@ -40,6 +40,9 @@ begin
     WriteLn('File tidak ketemu atau kosong: ', NamaFile);
     Halt(1);
   end;
+
+// di begin, sebelum InitLexer:
+uImport.ResetImport;
 
   InitLexer(Kode);
   NextToken;
