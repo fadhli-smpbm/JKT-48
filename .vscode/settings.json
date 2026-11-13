@@ -1,0 +1,6 @@
+{
+  "files.associations": { "*.pas": "hanacaraka" },
+  "editor.fontFamily": "'Noto Sans Javanese', 'Fira Code', monospace",
+  "editor.fontSize": 16,
+  "editor.tabSize": 2
+}
