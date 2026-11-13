@@ -1,0 +1,25 @@
+{
+  "name": "Hanacaraka",
+  "scopeName": "source.hanacaraka",
+  "fileTypes": ["pas", "hana"],
+  "patterns": [
+    { "name": "comment.line.double-slash.hanacaraka", "match": "//.*$" },
+    { "name": "comment.block.hanacaraka", "begin": "/\\*", "end": "\\*/" },
+    {
+      "name": "keyword.control.hanacaraka",
+      "match": "ꦥꦿꦺꦴꦒꦿꦩ꧀|ꦮꦂ|ꦩꦸꦭꦶ|ꦫꦩ꧀ꦥꦸꦁ|ꦪꦺꦤ꧀|ꦩꦺꦴꦁꦏꦺꦴ|ꦭꦶꦪꦤꦺ|ꦱꦼꦭꦶꦫꦺ|ꦭꦏꦺꦴꦤꦶ|ꦏꦁꦒꦺꦴ|ꦠꦸꦩꦼꦏ|ꦥꦿꦺꦴꦱꦺꦢꦸꦂ|ꦥ꦳ꦸꦁꦱꦶ"
+    },
+    {
+      "name": "entity.name.function.hanacaraka",
+      "match": "ꦠꦸꦭꦶꦱ꧀|BacaFile|TulisFile|Param|JumlahParam|Panjang|Kode|Ambil|Gabung"
+    },
+    {
+      "name": "support.type.hanacaraka",
+      "match": "ꦲꦁꦏ|ꦠꦼꦩ꧀ꦧꦸꦁ|Integer|string"
+    },
+    { "name": "constant.numeric.hanacaraka", "match": "\\b[0-9]+\\b" },
+    { "name": "keyword.operator.hanacaraka", "match": ":=|\\+|-|\\*|/|=|<|>|;|:" },
+    { "name": "string.quoted.hanacaraka", "begin": "'", "end": "'" },
+    { "name": "variable.other.hanacaraka", "match": "[a-zA-Z_ꦀ-꧿][a-zA-Z0-9_ꦀ-꧿]*" }
+  ]
+}
