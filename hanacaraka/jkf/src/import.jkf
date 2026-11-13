@@ -1,0 +1,34 @@
+ꦥꦿꦺꦴꦒꦿꦩ꧀ Import;
+ꦮꦂ
+  listImport : ꦠꦼꦩ꧀ꦧꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ ResetImport;
+ꦩꦸꦭꦶ
+  listImport := '';
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ SudahDiImport(n : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦲꦁꦏ;
+ꦩꦸꦭꦶ
+  SudahDiImport := 0;
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥꦿꦺꦴꦱꦺꦢꦸꦂ TandaiDiImport(n : ꦠꦼꦩ꧀ꦧꦸꦁ);
+ꦩꦸꦭꦶ
+  listImport := Gabung(listImport, n);
+  listImport := Gabung(listImport, ';');
+ꦫꦩ꧀ꦥꦸꦁ;
+
+ꦥ꦳ꦸꦁꦱꦶ CariFileModul(n : ꦠꦼꦩ꧀ꦧꦸꦁ) : ꦠꦼꦩ꧀ꦧꦸꦁ;
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ FileAda(n) = 1 ꦩꦺꦴꦁꦏꦺꦴ
+    CariFileModul := n
+  ꦭꦶꦪꦤꦺ
+    ꦪꦺꦤ꧀ FileAda(Gabung('src/', n)) = 1 ꦩꦺꦴꦁꦏꦺꦴ
+      CariFileModul := Gabung('src/', n)
+    ꦭꦶꦪꦤꦺ
+      ꦪꦺꦤ꧀ FileAda(Gabung(Gabung('src/', n), '.jkf')) = 1 ꦩꦺꦴꦁꦏꦺꦴ
+        CariFileModul := Gabung(Gabung('src/', n), '.jkf')
+      ꦭꦶꦪꦤꦺ
+        CariFileModul := '';
+ꦫꦩ꧀ꦥꦸꦁ;
+ꦫꦩ꧀ꦥꦸꦁ.
