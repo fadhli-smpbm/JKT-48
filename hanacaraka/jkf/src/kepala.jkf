@@ -1,0 +1,22 @@
+ꦥꦿꦺꦴꦒꦿꦩ꧀ Main;
+ꦒꦸꦤꦏꦏꦺ error, lexer, vm, parser, codegen;
+
+ꦩꦸꦭꦶ
+  ꦪꦺꦤ꧀ JumlahParam() >= 1 ꦩꦺꦴꦁꦏꦺꦴ
+    namaFile := Param(1)
+  ꦭꦶꦪꦤꦺ
+    namaFile := 'contoh/01_hello.jkf';
+  kode := BacaFile(namaFile);
+  panjang := Panjang(kode);
+  i := 1;
+  baris := 1;
+  kolom := 1;
+  adaError := 0;
+  varSimpan := '';
+  NextToken;
+  ExecStmt;
+  ꦪꦺꦤ꧀ adaError = 0 ꦩꦺꦴꦁꦏꦺꦴ
+    ꦠꦸꦭꦶꦱ꧀('Selesai, tidak ada error')
+  ꦭꦶꦪꦤꦺ
+    ꦠꦸꦭꦶꦱ꧀('Program berhenti karena error');
+ꦫꦩ꧀ꦥꦸꦁ.
