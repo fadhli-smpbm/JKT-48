@@ -1,0 +1,89 @@
+procedure ExecGunakan;
+var
+  NamaModul: string;
+  PathFile: string;
+  KodeImport: string;
+  SimpanKode: string;
+  SimpanI, SimpanPanjang, SimpanBaris, SimpanKolom: Integer;
+  Pertama: Boolean;
+
+  procedure LoadSatuModul(Nama: string);
+  begin
+    if SudahDiImport(Nama) then Exit;
+    PathFile := CariFileModul(Nama);
+    if PathFile = '' then
+    begin
+      TampilError('File modul tidak ditemukan: ' + Nama + ', cek folder src/', Baris, Kolom);
+      Exit;
+    end;
+    TandaiDiImport(Nama);
+
+    SimpanKode := Kode;
+    SimpanI := I;
+    SimpanPanjang := Panjang;
+    SimpanBaris := Baris;
+    SimpanKolom := Kolom;
+
+    KodeImport := BacaFile(PathFile);
+    InitLexer(KodeImport);
+    NextToken;
+    while (CurToken <> 0) and (AdaError = 0) do
+    begin
+      ExecStmt;
+      if CurToken = 41 then NextToken;
+      if CurToken = 0 then Break;
+    end;
+
+    Kode := SimpanKode;
+    I := SimpanI;
+    Panjang := SimpanPanjang;
+    Baris := SimpanBaris;
+    Kolom := SimpanKolom;
+  end;
+
+begin
+  // CurToken = 60 (ꦒꦸꦤꦏꦏꦺ)
+  NextToken;
+  Pertama := True;
+
+  // Loop: nama, koma, nama, koma, nama, ;
+  while True do
+  begin
+    // Harus nama modul: error / 'src/error.jkf' / lexer
+    if (CurToken = 31) or (CurToken = 99) then
+      NamaModul := CurText
+    else
+    begin
+      if Pertama then
+        TampilError('Setelah ꦒꦸꦤꦏꦏꦺ harus ada nama modul, contoh: ꦒꦸꦤꦏꦏꦺ error, lexer;', Baris, Kolom)
+      else
+        TampilError('Setelah koma harus ada nama modul, contoh: ꦒꦸꦤꦏꦏꦺ error, lexer;', Baris, Kolom);
+      Exit;
+    end;
+
+    // Load modul ini
+    LoadSatuModul(NamaModul);
+    if AdaError = 1 then Exit;
+
+    Pertama := False;
+    NextToken;
+
+    // Kalau ketemu koma, lanjut ke modul berikutnya
+    if CurToken = 42 then
+    begin
+      NextToken;
+      Continue;
+    end;
+
+    // Kalau ketemu ; berarti selesai
+    if CurToken = 41 then
+    begin
+      NextToken;
+      Break;
+    end;
+
+    // Kalau bukan koma / ; berarti salah
+    TampilError('Setelah nama modul harus ada , atau ;, contoh: ꦒꦸꦤꦏꦏꦺ error, lexer;', Baris, Kolom);
+    Exit;
+  end;
+end;
