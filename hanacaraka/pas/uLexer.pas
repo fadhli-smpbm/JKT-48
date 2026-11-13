@@ -59,6 +59,8 @@ end;
 function KeywordKeToken(K: string): Integer;
 begin
   if K = 'ꦩꦸꦭꦶ' then Result := 10
+else if K = 'ꦒꦸꦤꦏꦏꦺ' then Result := 60
+else if K = 'gunakan' then Result := 60; // biar yang ngetik latin juga jalan
   else if K = 'ꦫꦩ꧀ꦥꦸꦁ' then Result := 11
   else if K = 'ꦠꦸꦭꦶꦱ꧀' then Result := 20
   else if K = 'ꦪꦺꦤ꧀' then Result := 12
@@ -155,6 +157,23 @@ begin
     if Huruf = '*' then begin CurToken := 52; CurText := '*'; Inc(I); Inc(Kolom); Exit; end;
     if Huruf = '/' then begin CurToken := 53; CurText := '/'; Inc(I); Inc(Kolom); Exit; end;
     if Huruf = '=' then begin CurToken := 54; CurText := '='; Inc(I); Inc(Kolom); Exit; end;
+
+// String '...'
+if Huruf = '''' then
+begin
+  Kata := '';
+  Inc(I); Inc(Kolom);
+  while (I <= Panjang) and (Copy(Kode, I, 1) <> '''') do
+  begin
+    Kata := Kata + Copy(Kode, I, 1);
+    Inc(I); Inc(Kolom);
+  end;
+  Inc(I); Inc(Kolom); // skip penutup '
+  CurToken := 31; // token string
+  CurText := Kata;
+  Exit;
+end;
+// tambahan
 
     // Karakter gak dikenal
     TampilError('Karakter tidak dikenal: ' + Huruf, Baris, Kolom);
