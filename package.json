@@ -1,0 +1,84 @@
+{
+  "name": "hanacaraka",
+  "displayName": "Hanacaraka Language Support",
+  "description": "Bahasa pemrograman pakai aksara Jawa (Hanacaraka). Sintaks Pascal, keyword Jawa. Self-hosting, bisa compile jadi binary.",
+  "version": "1.0.0",
+  "publisher": "hanacaraka",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Programming Languages", "Snippets"],
+  "keywords": ["hanacaraka", "jawa", "javanese", "pascal", "indonesia"],
+  "homepage": "https://github.com/USERNAME_KAMU/hanacaraka",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/USERNAME_KAMU/hanacaraka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/USERNAME_KAMU/hanacaraka/issues"
+  },
+  "galleryBanner": {
+    "color": "#1E1E1E",
+    "theme": "dark"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "hanacaraka",
+        "aliases": ["Hanacaraka", "hanacaraka"],
+        "extensions": [".pas", ".hana"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icon.png",
+          "dark": "./icon.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "hanacaraka",
+        "scopeName": "source.hanacaraka",
+        "path": "./syntaxes/hanacaraka.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "hanacaraka",
+        "path": "./snippets/hanacaraka.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "hanacaraka.run",
+        "title": "Hanacaraka: Jalankan Program"
+      },
+      {
+        "command": "hanacaraka.compile",
+        "title": "Hanacaraka: Compile jadi Binary"
+      },
+      {
+        "command": "hanacaraka.runVM",
+        "title": "Hanacaraka: Jalankan Pakai VM Hanacaraka"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "hanacaraka.run",
+        "key": "ctrl+shift+b",
+        "when": "editorLangId == hanacaraka"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "echo \"No compile needed\"",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.26.0"
+  }
+}
